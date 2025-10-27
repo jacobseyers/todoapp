@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>What to do today</title>
+
+    <!-- Custom Flatly Theme (local static file) -->
+    <link rel="stylesheet" href="{% static 'todolist/css/flatly.min.css' %}">
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <header class="text-center py-4 bg-primary text-white">
+        <h1>What to do today</h1>
+    </header>
+
+    <div class="container mt-4">
+        <form class="todo-input d-flex justify-content-center mb-3">
+            <input type="text" placeholder="Enter todo e.g. Wash my car" class="form-control w-50">
+            <button type="submit" class="btn btn-success ms-2">ADD</button>
+        </form>
+
+        <div class="delete-buttons d-flex justify-content-center mb-4">
+            <button class="btn delete-completed">DELETE COMPLETED</button>
+            <button class="btn delete-all ms-2">DELETE ALL</button>
+        </div>
+
+        <ul class="todo-list list-unstyled mx-auto" style="max-width: 600px;">
+            <li class="bg-light p-3 mb-2 rounded">Learn something new.</li>
+            <li class="active p-3 mb-2 rounded">Buy a new journal.</li>
+            <li class="bg-light p-3 mb-2 rounded">Book a dentist appointment.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
