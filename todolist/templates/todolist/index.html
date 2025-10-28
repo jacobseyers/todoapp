@@ -31,9 +31,14 @@
         </div>
 
         <ul class="todo-list list-unstyled mx-auto" style="max-width: 600px;">
-            <li class="bg-light p-3 mb-2 rounded">Learn something new.</li>
-            <li class="active p-3 mb-2 rounded">Buy a new journal.</li>
-            <li class="bg-light p-3 mb-2 rounded">Book a dentist appointment.</li>
+            {% for todolist in todo_items %}
+                {% if todolist.completed %}
+            <li class="bg-light p-3 mb-2 rounded todo-completed">{{todolist.text}}</li>
+            {% else %}
+            <a href="#"><li class="bg-light p-3 mb-2 rounded">{{todolist.text}}</li></a>
+           {% endif %}
+            {% endfor %}
+            
         </ul>
     </div>
 
