@@ -20,25 +20,40 @@
     </header>
 
     <div class="container mt-4">
-        <form class="todo-input d-flex justify-content-center mb-3">
-            <input type="text" placeholder="Enter todo e.g. Wash my car" class="form-control w-50">
+        <!-- ✅ Single form for adding todos -->
+        <form action="{% url 'add' %}" method="POST" class="todo-input d-flex justify-content-center mb-3">
+            {% csrf_token %}
+            {{ form.text }}
             <button type="submit" class="btn btn-success ms-2">ADD</button>
         </form>
 
+        <!-- Delete buttons -->
         <div class="delete-buttons d-flex justify-content-center mb-4">
-            <button class="btn delete-completed">DELETE COMPLETED</button>
-            <button class="btn delete-all ms-2">DELETE ALL</button>
+            <form action="{% url 'deletecompleted' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn delete-completed">DELETE COMPLETED</button>
+            </form>
+            <form action="{% url 'deleteall' %}" method="POST" class="ms-2" onsubmit="return confirm('Are you sure you want to delete ALL tasks?');">
+                {% csrf_token %}
+                <button type="submit" class="btn delete-all">DELETE ALL</button>
+            </form>
         </div>
 
+        <!-- Dynamic todo list -->
         <ul class="todo-list list-unstyled mx-auto" style="max-width: 600px;">
             {% for todolist in todo_items %}
                 {% if todolist.completed %}
-            <li class="bg-light p-3 mb-2 rounded todo-completed">{{todolist.text}}</li>
-            {% else %}
-            <a href="#"><li class="bg-light p-3 mb-2 rounded">{{todolist.text}}</li></a>
-            {% endif %}
+                    <li class="bg-light p-3 mb-2 rounded todo-completed text-decoration-line-through">{{ todolist.text }}</li>
+                {% else %}
+                    <li class="bg-light p-3 mb-2 rounded">
+                        <a href='{% url 'completed' todolist.id %}' class="text-decoration-none text-dark d-block">
+                            {{ todolist.text }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% empty %}
+                <li class="text-muted text-center">No tasks yet. Add one above!</li>
             {% endfor %}
-            
         </ul>
     </div>
 
